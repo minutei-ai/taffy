@@ -623,7 +623,7 @@ pub fn compute_grid_layout<Tree: LayoutGridContainer>(
             },
         };
         #[cfg_attr(not(feature = "content_size"), allow(unused_variables))]
-        let (overflow_contribution, y_position, height) = align_and_position_item(
+        let (overflow_contribution, y_position, height, baseline) = align_and_position_item(
             tree,
             item.node,
             index as u32,
@@ -638,6 +638,7 @@ pub fn compute_grid_layout<Tree: LayoutGridContainer>(
         );
         item.y_position = y_position;
         item.height = height;
+        item.baseline = baseline;
 
         #[cfg(feature = "content_size")]
         {
@@ -769,7 +770,7 @@ pub fn compute_grid_layout<Tree: LayoutGridContainer>(
 
             // TODO: Baseline alignment support for absolutely positioned items (should check if is actually specified)
             #[cfg_attr(not(feature = "content_size"), allow(unused_variables))]
-            let (overflow_contribution, _, _) = align_and_position_item(
+            let (overflow_contribution, _, _, _) = align_and_position_item(
                 tree,
                 child,
                 order,
